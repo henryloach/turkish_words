@@ -1,12 +1,12 @@
 <header>
-    <img class="source-flag"src="/img/gb.svg" alt="Flag of UKGBNI">
-    <img class="target-flag"src="/img/tr.svg" alt="Flag of Turkey">
+    <img class="source-flag" src="/img/gb.svg" alt="Flag of UKGBNI">
+    <img class="target-flag" src="/img/tr.svg" alt="Flag of Turkey">
 </header>
 
 <style>
     header {
         text-align: center;
-        background: #f7f7f7;
+        background: #ffffff;
         padding: 15px;
     }
 
@@ -16,9 +16,11 @@
         margin: 0 50px;
     }
 
-    /* .source-flag {
+    .source-flag {
+        border-radius: 3px;
     }
 
     .target-flag {
-    } */
+        border-radius: 3px;
+    }
 </style>

@@ -14,16 +14,80 @@
     }
 
 </script>
-    <p>English Word: {wordObj.english_word} </p>
-    <TargetSentence {wordObj} on:sucess={handleSuccess}/>
-    <p>English Sentence: {wordObj.english_sentence}</p>
-    <p>{wordObj.type} {wordObj.notes || ""}</p>
-    <button on:click={() => activeId = (activeId - 1 < 1) ? 1 : activeId -1}>Next</button>
-    <button on:click={() => activeId = (activeId + 1 > words.length) ? words.length : activeId + 1}>Next</button>
+
+    <Card>
+    <p class="target-sentence"><TargetSentence {wordObj} on:sucess={handleSuccess}/>&#9;<span class="correct-tick"></span></p>
+    <!-- <img class="tick-icon" src="/img/tick.svg" alt="tick-icon"> -->
+    <p class="word-type">{wordObj.type}</p>
+    <hr>
+    <p class="source-word">{wordObj.english_word} </p>
+    <p class="source-sentence">{wordObj.english_sentence}</p>
+    {#if wordObj.notes}
+    <p class="notes">notes: <br> {wordObj.notes}</p>
+    {/if}
+    <button class="previous-button" on:click={() => activeId = (activeId - 1 < 1) ? 1 : activeId -1}>Previous</button>
+    <button class="next-button" on:click={() => activeId = (activeId + 1 > words.length) ? words.length : activeId + 1}>Next</button>
+    </Card> 
 
     <style>
         p {
             font-size: 20px;
+            margin: 0;
         }
+
+        .target-sentence {
+            font-size: 25px;
+        }
+
+        .correct-tick {
+            color: beige;
+        }
+
+        .word-type {
+            padding: 20px 0px;
+            font-style: italic;
+        }
+
+        .source-word {
+            font-size: 30px;
+            padding-top: 20px;
+            padding-bottom: 0px;
+        }
+
+        .source-sentence {
+            padding-top: 10px;
+            padding-bottom: 20px;
+        }
+
+        .notes {
+            padding: 15px 0px;
+            font-size: 18px;
+        }
+
+        button {
+            color: gray;
+            font-weight: 600;
+            border-radius: 5rem;
+            padding: 10px 20px;
+            border: 4px solid darkgray; 
+            background-color: white;
+            margin: 0;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        .next-button {
+            margin-left: 20px;
+           
+        }
+
+        .previous-button {
+            margin-right: 20px;
+        }
+
+        
+
     </style>
 

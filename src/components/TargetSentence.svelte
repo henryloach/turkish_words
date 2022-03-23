@@ -26,22 +26,40 @@ $: spanList = sentence.match(re);
 
 function handleSubmit(event) {
     if (event.key === 'Enter') {
-        if (word === answer) {
+        if (word.toLowerCase() === answer.toLowerCase()) {
+            document.querySelector(".correct-tick").innerHTML = "&#x2714;";
+            document.querySelector(".text-input").style.color = "green";
+            document.querySelector(".correct-tick").style.color = "green";
             solved = true; 
             hint = ""; 
             hintStage = 0;
-            dispatch('sucess');
+
+            setTimeout(() => {
+                document.querySelector(".correct-tick").innerHTML = "";
+                dispatch('sucess');
+            }, 1000);
+            
         } else {
-            hint = word.slice(0,++hintStage);
-            answer = ""
+            document.querySelector(".correct-tick").innerHTML = "&#x2716;";
+            document.querySelector(".correct-tick").style.color = "darkred";
+            document.querySelector(".text-input").style.color = "darkred";
+
+            setTimeout(() => {
+                document.querySelector(".correct-tick").innerHTML = "";
+                document.querySelector(".text-input").style.color = "#333";
+                hint = word.slice(0,++hintStage);
+                answer = ""
+            }, 250);
+            
+            
         }      
     }     
 }
 
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext("2d");
-ctx.font = "20px Helvetica";
-$: textWidth = Math.ceil(ctx.measureText(word).width);
+ctx.font = "25px Helvetica";
+$: textWidth = 1 + Math.ceil(ctx.measureText(word).width);
 
 function handleLoad() {
     const inputs = document.querySelectorAll(".text-input")
@@ -52,32 +70,33 @@ afterUpdate(handleLoad);
 
 </script>
 
-<p>
-    {#each spanList as span}
-        {#if span.toLowerCase() === word.toLowerCase()}
-            <input 
-                class="text-input" 
-                type="text" 
-                autocomplete="off" 
-                autocorrect="off" 
-                spellcheck="false" 
-                autocapitalize="off" 
-                placeholder={hint} 
-                autofocus 
-                bind:value={answer} 
-                on:keypress={handleSubmit}/> 
-        {:else}
-            <span>{span}</span>
-        {/if}
-    {/each}
-</p>
+
+{#each spanList as span}
+    {#if span.toLowerCase() === word.toLowerCase()}
+        <input 
+            class="text-input" 
+            type="text" 
+            autocomplete="off" 
+            autocorrect="off" 
+            spellcheck="false" 
+            autocapitalize="off" 
+            placeholder={hint} 
+            autofocus 
+            bind:value={answer} 
+            on:keypress={handleSubmit}/> 
+    {:else}
+        <span>{span}</span>
+    {/if}
+{/each}
+
 
 <style>
     input {
         border: none;
-        background-color: #f7f7f7;
+        background-color: #d6dce9;
         width:var(--inputWidth);
         padding: 0;
+        color: #333;
     }
 
     input:focus {
@@ -87,9 +106,5 @@ afterUpdate(handleLoad);
 
     input::placeholder{
         color: steelblue;
-    }
-    
-    p {
-        font-size: 20px;
-    }
+    }  
 </style>
