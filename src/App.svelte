@@ -1,11 +1,24 @@
 <script>
 	import Header from './components/Header.svelte';
 	import WordDetails from './components/WordDetails.svelte';
+	import CharacterButtons from './components/CharacterButtons.svelte';
+
+	let is_shift = false;
+
+	const handleKeydown = (event) => {
+		if (event.key === 'Shift') is_shift = true;		
+	}
+
+	const handleKeyUp = (event) => {
+		if (event.key === 'Shift') is_shift = false;	
+	}
+
 </script>
 
 <Header/>
-<main>
+<main on:keyup={handleKeyUp} on:keydown ={handleKeydown}>
 	<WordDetails/>
+	<CharacterButtons {is_shift}/>
 </main>
 
 <style>

@@ -6,6 +6,7 @@
     import TargetSentence from './TargetSentence.svelte'
 
     let activeId = 1;
+    activeId = 20; // <-----------DEBUG
     
     $: wordObj = words.find((word) => word.id == activeId);
 
@@ -17,7 +18,6 @@
 
     <Card>
     <p class="target-sentence"><TargetSentence {wordObj} on:sucess={handleSuccess}/>&#9;<span class="correct-tick"></span></p>
-    <!-- <img class="tick-icon" src="/img/tick.svg" alt="tick-icon"> -->
     <p class="word-type">{wordObj.type}</p>
     <hr>
     <p class="source-word">{wordObj.english_word} </p>
@@ -27,6 +27,7 @@
     {/if}
     <button class="previous-button" on:click={() => activeId = (activeId - 1 < 1) ? 1 : activeId -1}>Previous</button>
     <button class="next-button" on:click={() => activeId = (activeId + 1 > words.length) ? words.length : activeId + 1}>Next</button>
+    <p>debug------{wordObj.id} {wordObj.turkish_word}</p>
     </Card> 
 
     <style>
@@ -74,8 +75,11 @@
             margin: 0;
         }
 
+        button:focus,
         button:hover {
             cursor: pointer;
+            border-color: steelblue;
+            color: steelblue;
         }
 
         .next-button {

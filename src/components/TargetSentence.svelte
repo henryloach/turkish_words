@@ -19,7 +19,7 @@ $: {
     answer="";
 }
 
-// This is also horrible.
+// This is also horrible. Also one of these İİ's is one of those two char thing 
 const re = /[\w'ÇĞIİİÖŞÜçğıi̇öşü]+|\s+|[^\s\w]+/gu
 
 $: spanList = sentence.match(re);
@@ -27,15 +27,17 @@ $: spanList = sentence.match(re);
 function handleSubmit(event) {
     if (event.key === 'Enter') {
         if (word.toLowerCase() === answer.toLowerCase()) {
-            document.querySelector(".correct-tick").innerHTML = "&#x2714;";
-            document.querySelector(".text-input").style.color = "green";
+            document.querySelector(".correct-tick").innerHTML = "&#x2714;"; 
             document.querySelector(".correct-tick").style.color = "green";
+            document.querySelector(".text-input").style.color = "green";
+            document.querySelector(".text-input").style.backgroundColor = "white";
             solved = true; 
             hint = ""; 
             hintStage = 0;
 
             setTimeout(() => {
                 document.querySelector(".correct-tick").innerHTML = "";
+                document.querySelector(".text-input").style.backgroundColor = "#e9ebf1";
                 dispatch('sucess');
             }, 1000);
             
@@ -43,15 +45,15 @@ function handleSubmit(event) {
             document.querySelector(".correct-tick").innerHTML = "&#x2716;";
             document.querySelector(".correct-tick").style.color = "darkred";
             document.querySelector(".text-input").style.color = "darkred";
+            document.querySelector(".text-input").style.backgroundColor = "white";
 
             setTimeout(() => {
                 document.querySelector(".correct-tick").innerHTML = "";
                 document.querySelector(".text-input").style.color = "#333";
+                document.querySelector(".text-input").style.backgroundColor = "#e9ebf1";
                 hint = word.slice(0,++hintStage);
                 answer = ""
             }, 250);
-            
-            
         }      
     }     
 }
@@ -93,7 +95,7 @@ afterUpdate(handleLoad);
 <style>
     input {
         border: none;
-        background-color: #d6dce9;
+        background-color: #e9ebf1;
         width:var(--inputWidth);
         padding: 0;
         color: #333;
