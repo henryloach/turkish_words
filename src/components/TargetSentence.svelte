@@ -24,13 +24,17 @@ const re = /[\w'ÇĞIİİÖŞÜçğıi̇öşü]+|\s+|[^\s\w]+/gu
 
 $: spanList = sentence.match(re);
 
+// refactor
 function handleSubmit(event) {
+    const inputs = document.querySelectorAll(".text-input")
     if (event.key === 'Enter') {
-        if (word.toLowerCase() === answer.toLowerCase()) {
-            document.querySelector(".correct-tick").innerHTML = "&#x2714;"; 
-            document.querySelector(".correct-tick").style.color = "green";
-            document.querySelector(".text-input").style.color = "green";
-            document.querySelector(".text-input").style.backgroundColor = "white";
+        if (word.toLowerCase() === answer.toLowerCase()) {     
+            inputs.forEach((input) => {
+                input.innerHTML = "&#x2714;"; 
+                input.style.color = "green";
+                input.style.color = "green";
+                input.style.backgroundColor = "white";
+            });
             solved = true; 
             hint = ""; 
             hintStage = 0;
@@ -42,10 +46,12 @@ function handleSubmit(event) {
             }, 1000);
             
         } else {
-            document.querySelector(".correct-tick").innerHTML = "&#x2716;";
-            document.querySelector(".correct-tick").style.color = "darkred";
-            document.querySelector(".text-input").style.color = "darkred";
-            document.querySelector(".text-input").style.backgroundColor = "white";
+            inputs.forEach((input) => {
+                input.innerHTML = "&#x2716;";
+                input.style.color = "darkred";
+                input.style.color = "darkred";
+                input.style.backgroundColor = "white";
+            });
 
             setTimeout(() => {
                 document.querySelector(".correct-tick").innerHTML = "";

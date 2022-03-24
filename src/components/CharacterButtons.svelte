@@ -9,9 +9,18 @@ const characterMap = Object.assign({}, characterList);
 
 const handleClick = function(character) {
     if (is_shift) {
-        document.querySelector(".text-input").value += character.character.toUpperCase();
+        document.querySelector(".text-input").value += character.toUpperCase();
     } else {
-        document.querySelector(".text-input").value += character.character;
+        document.querySelector(".text-input").value += character;
+    }
+}
+
+const handleKeyDown = function(event) {
+    console.log(event.key);
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+        const currentString = document.querySelector(".text-input").value
+        const newString = currentString.slice(0,-1);
+        document.querySelector(".text-input").value = newString;
     }
 }
 
@@ -19,9 +28,9 @@ const handleClick = function(character) {
 
 {#each characterList as character}
     {#if is_shift}
-        <button on:mousedown|preventDefault on:click|preventDefault={() => handleClick({character})}>{character.toUpperCase()}</button>
+        <button on:keydown={handleKeyDown} on:click={() => handleClick(character)}>{character.toUpperCase()}</button>
     {:else}
-        <button on:mousedown|preventDefault on:click|preventDefault={() => handleClick({character})}>{character}</button>
+        <button on:keydown={handleKeyDown} on:mousedown|preventDefault on:click={() => handleClick(character)}>{character}</button>
     {/if}
 {/each}
 
@@ -33,6 +42,7 @@ button {
         border: 3px solid darkgrey;
         padding: 5px 20px;
         margin: 20px 5px;
+        background-color: white;
     }
 
 button:hover {
