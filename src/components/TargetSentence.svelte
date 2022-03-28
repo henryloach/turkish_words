@@ -14,6 +14,7 @@ $: sentence = wordObj.turkish_sentence;
 $: id = wordObj.id;
 
 // This seems like a hack. Redo properly...
+
 $: {
     id;
     answer="";
@@ -26,12 +27,13 @@ $: spanList = sentence.match(re);
 
 // refactor
 function handleSubmit(event) {
+    const icon = document.querySelector(".correct-tick")
     const inputs = document.querySelectorAll(".text-input")
     if (event.key === 'Enter') {
         if (word.toLowerCase() === answer.toLowerCase()) {     
             inputs.forEach((input) => {
-                input.innerHTML = "&#x2714;"; 
-                input.style.color = "green";
+                icon.innerHTML = "&#x2714;"; 
+                icon.style.color = "green";
                 input.style.color = "green";
                 input.style.backgroundColor = "white";
             });
@@ -47,8 +49,8 @@ function handleSubmit(event) {
             
         } else {
             inputs.forEach((input) => {
-                input.innerHTML = "&#x2716;";
-                input.style.color = "darkred";
+                icon.innerHTML = "&#x2716;";
+                icon.style.color = "darkred";
                 input.style.color = "darkred";
                 input.style.backgroundColor = "white";
             });
@@ -57,7 +59,7 @@ function handleSubmit(event) {
                 document.querySelector(".correct-tick").innerHTML = "";
                 document.querySelector(".text-input").style.color = "#333";
                 document.querySelector(".text-input").style.backgroundColor = "#e9ebf1";
-                hint = word.slice(0,++hintStage);
+                hint = word.slice(0, ++hintStage);
                 answer = ""
             }, 250);
         }      
